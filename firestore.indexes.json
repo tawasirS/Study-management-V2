@@ -1,0 +1,33 @@
+{
+    "indexes": [
+        {
+            "collectionGroup": "subjects",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "memberUserIds",
+                    "arrayConfig": "CONTAINS"
+                },
+                {
+                    "fieldPath": "createdAt",
+                    "order": "DESCENDING"
+                }
+            ]
+        },
+        {
+            "collectionGroup": "studyTimes",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "participantUserIds",
+                    "arrayConfig": "CONTAINS"
+                },
+                {
+                    "fieldPath": "startAt",
+                    "order": "ASCENDING"
+                }
+            ]
+        }
+    ],
+    "fieldOverrides": []
+}
