@@ -55,9 +55,20 @@ export type LectureNoteMetadata = {
     date: Timestamp; // For linking to a specific date
 };
 
+export type User = {
+    id: string;
+    displayName: string;
+};
+
 // ---------------------------------------------------------
 // REPOSITORY FUNCTIONS (Data Access)
 // ---------------------------------------------------------
+
+export async function getUsers(): Promise<User[]> {
+    const snapshot = await adminDb.collection("users").get();
+    const users = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as User));
+    return users.sort((a, b) => a.displayName.localeCompare(b.displayName));
+}
 
 export async function getSubjects(): Promise<Subject[]> {
     const snapshot = await adminDb.collection("subjects").get();
