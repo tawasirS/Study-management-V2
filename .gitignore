@@ -13,9 +13,15 @@ node_modules/
 .env.production.local
 
 # Firebase
+<<<<<<< HEAD
 # firebase-debug.log*
 # .firebase/
 # serviceAccount.json
+=======
+firebase-debug.log*
+.firebase/
+serviceAccount.json
+>>>>>>> master
 
 # OS files
 .DS_Store
@@ -30,3 +36,7 @@ yarn-error.log*
 build/
 dist/
 firebase.json
+<<<<<<< HEAD
+=======
+firebase.json 
+>>>>>>> master
