@@ -1,0 +1,52 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper to check if user is a member of the subject
+    function isSubjectMember(subjectId) {
+       // This requires a "get" which costs money/latency. 
+       // Better: Include userIds in the document being requested if possible, 
+       // OR store "memberships" in the user doc (claims).
+       // For this schema (subject has memberUserIds):
+       let subject = get(/databases/$(database)/documents/subjects/$(subjectId));
+       return request.auth.uid in subject.data.memberUserIds;
+    }
+
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /subjects/{subjectId} {
+      allow read: if isAuthenticated() && (request.auth.uid in resource.data.memberUserIds);
+      // Only teachers/admins (not defined in prompt, assume ownerTeacherName check or custom claim) can write
+      allow write: if false; 
+    }
+
+    match /studyTimes/{studyTimeId} {
+      allow read: if isAuthenticated() && (request.auth.uid in resource.data.participantUserIds);
+      allow write: if false; 
+    }
+
+    match /homeworks/{homeworkId} {
+        // We technically need to check subject membership, but homework doc doesn't duplicate memberUserIds.
+        // We can do get() on subject.
+      allow read: if isAuthenticated() && isSubjectMember(resource.data.subjectId);
+      allow write: if false;
+
+      match /submissions/{userId} {
+        allow read, write: if isAuthenticated() && request.auth.uid == userId;
+      }
+    }
+
+    match /lectureNotes/{noteId} {
+      allow read: if isAuthenticated() && isSubjectMember(resource.data.subjectId);
+      allow write: if isAuthenticated() && request.auth.uid == resource.data.createdByUserId;
+    }
+  }
+}

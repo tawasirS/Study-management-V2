@@ -1,0 +1,53 @@
+﻿
+> study-management-v2@0.1.0 lint
+> eslint
+
+
+D:\study-management-v2\app\api\notes\[id]\route.ts
+  54:27  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\study-management-v2\app\homeworks\page.tsx
+   5:24  warning  'Circle' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+  35:74  error    Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\study-management-v2\app\homeworks\page.tsx:35:74
+  33 |                     {pending.map(hw => {
+  34 |                         const dueDate = hw.dueAt ? hw.dueAt.toDate() : null;
+> 35 |                         const isUrgent = dueDate && (dueDate.getTime() - Date.now() < 86400000 * 3); // 3 days
+     |                                                                          ^^^^^^^^^^ Cannot call impure function
+  36 |
+  37 |                         return (
+  38 |                             <div key={hw.id} className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row gap-6">  react-hooks/purity
+  73:61  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  react/no-unescaped-entities
+
+D:\study-management-v2\app\lecture-notes\page.tsx
+   4:10  warning  'useState' is defined but never used                                                                                   @typescript-eslint/no-unused-vars
+   4:20  warning  'useEffect' is defined but never used                                                                                  @typescript-eslint/no-unused-vars
+   6:10  warning  'Plus' is defined but never used                                                                                       @typescript-eslint/no-unused-vars
+   6:26  warning  'Search' is defined but never used                                                                                     @typescript-eslint/no-unused-vars
+   7:10  warning  'useRouter' is defined but never used                                                                                  @typescript-eslint/no-unused-vars
+   8:10  warning  'getSubjects' is defined but never used                                                                                @typescript-eslint/no-unused-vars
+  24:10  warning  'CURRENT_USER_ID' is defined but never used                                                                            @typescript-eslint/no-unused-vars
+  35:1   warning  Prevent Client Components from being async functions. See: https://nextjs.org/docs/messages/no-async-client-component  @next/next/no-async-client-component
+  49:35  error    Unexpected any. Specify a different type                                                                               @typescript-eslint/no-explicit-any
+
+D:\study-management-v2\app\subjects\[id]\page.tsx
+  5:45  warning  'CheckCircle' is defined but never used  @typescript-eslint/no-unused-vars
+  5:58  warning  'Circle' is defined but never used       @typescript-eslint/no-unused-vars
+  5:66  warning  'AlertCircle' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\study-management-v2\app\subjects\page.tsx
+  5:32  warning  'Clock' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\study-management-v2\lib\db.ts
+  128:11  warning  'subjectIds' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\study-management-v2\scripts\seed.ts
+  147:13  error    'subjectId' is never reassigned. Use 'const' instead  prefer-const
+  204:15  warning  'noteId' is assigned a value but never used           @typescript-eslint/no-unused-vars
+
+Γ£û 20 problems (5 errors, 15 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

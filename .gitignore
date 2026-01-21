@@ -1,0 +1,33 @@
+# Next.js
+.next/
+out/
+
+# Dependency directories
+node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Firebase
+firebase-debug.log*
+.firebase/
+serviceAccount.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build-related
+build/
+dist/
+firebase.json
+firebase.json 
