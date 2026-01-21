@@ -66,7 +66,13 @@ export type User = {
 
 export async function getUsers(): Promise<User[]> {
     const snapshot = await adminDb.collection("users").get();
-    const users = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as User));
+    const users = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+            id: doc.id,
+            displayName: data.displayName || doc.id
+        } as User;
+    });
     return users.sort((a, b) => a.displayName.localeCompare(b.displayName));
 }
 
